@@ -14,6 +14,8 @@ public class SortableDataTableTests : BaseTest
         const string email = "jsmith@gmail.com";
         const string headerWebSite = "Web Site";
         const string headerFirstName = "First Name";
+        const string headerLastName = "Last Name";
+        List<string> lastNames = ["Smith", "Bach", "Doe", "Conway"];
 
         driver.Navigate().GoToUrl(BaseUrl);
         var mainPage = new MainPage(driver);
@@ -31,6 +33,14 @@ public class SortableDataTableTests : BaseTest
         table.ClickHeader(headerFirstName);
 
         // Assert
-        Assert.That(table.IsColumnSorted(headerFirstName), Is.True, $"Table should be sorted by '{headerFirstName}'");
+        Assert.Multiple(() =>
+        {
+            Assert.That(table.IsColumnSorted(headerFirstName), Is.True, $"Table should be sorted by '{headerFirstName}'.");
+            Assert.That(table.IsValueInColumn(headerWebSite, webSite), Is.True, $"Value '{webSite}' should be present in the '{headerWebSite}' column.");
+            foreach (var lastName in lastNames)
+            {
+                Assert.That(table.IsValueInColumn(headerLastName, lastName), Is.True, $"Value '{lastName}' should be present in the '{headerLastName}' column.");
+            }
+        });
     }
 }

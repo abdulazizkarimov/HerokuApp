@@ -99,7 +99,35 @@ public class TableHelper
 
         throw new NoSuchElementException($"Header with name '{headerName}' was not found.");
     }
-    
+
+    public bool IsValueInColumn(string columnName, string value)
+    {
+        var headers = GetHeaderCells().Select(h => h.Text.Trim()).ToList();
+
+        int columnIndex = headers.FindIndex(h => h.Equals(columnName.Trim(), StringComparison.OrdinalIgnoreCase));
+
+        if (columnIndex == -1)
+            throw new NoSuchElementException($"Column '{columnName}' was not found.");
+
+        foreach (var row in GetRows())
+        {
+            if (row.FindElements(By.CssSelector("th")).Any())
+                continue;
+
+            var cells = row.FindElements(By.CssSelector("td, th"));
+
+            if (columnIndex < cells.Count)
+            {
+                string cellText = cells[columnIndex].Text.Trim();
+
+                if (cellText.Equals(value.Trim(), StringComparison.OrdinalIgnoreCase))
+                    return true;
+            }
+        }
+
+        return false;
+    }
+
     public IList<IWebElement> GetRows()
     {
         return _table.FindElements(By.TagName("tr"));
