@@ -18,4 +18,9 @@ public class MainPage(IWebDriver driver)
         SortableDataTablesLink.Click();
         return new SortableDataTablesPage(driver);
     }
+
+    public void ClickLinkWithText(string linkText)
+    {
+        driver.FindElement(By.LinkText(linkText)).Click();
+    }
 }

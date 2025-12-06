@@ -110,9 +110,6 @@ namespace HerokuApp.Features
 #line 8
     await testRunner.GivenAsync("I went on \"https://the-internet.herokuapp.com/\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
-#line 9
-    await testRunner.AndAsync("I followed the \'Sortable Data Tables\' link", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
-#line hidden
         }
         
         private static global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages InitializeCucumberMessages()
@@ -132,7 +129,7 @@ namespace HerokuApp.Features
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Clicking header sorts the table", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
             global::Reqnroll.RuleInfo ruleInfo = null;
-#line 12
+#line 11
 this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -145,16 +142,22 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line 7
 await this.FeatureBackgroundAsync();
 #line hidden
+#line 12
+    await testRunner.WhenAsync("I follow the \'Sortable Data Tables\' link on the Main Page", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
 #line 13
-    await testRunner.AndAsync("I captured the \'Web Site\' value for the row with email \'jsmith@gmail.com\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+    await testRunner.ThenAsync("the \'Sortable Data Tables\' page is opened", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
 #line 14
-    await testRunner.WhenAsync("I click the \'First Name\' column header", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+    await testRunner.WhenAsync("I capture the \'Web Site\' value for the row with email \'jsmith@gmail.com\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 15
-    await testRunner.ThenAsync("the rows are sorted by the \'First Name\' column", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+    await testRunner.AndAsync("I click the \'First Name\' column header", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
 #line 16
+    await testRunner.ThenAsync("the rows are sorted by the \'First Name\' column", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+#line 17
     await testRunner.AndAsync("the captured value is still present in the \'Web Site\' column", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
                 global::Reqnroll.Table table1 = new global::Reqnroll.Table(new string[] {
@@ -167,7 +170,7 @@ await this.FeatureBackgroundAsync();
                             "Doe"});
                 table1.AddRow(new string[] {
                             "Conway"});
-#line 17
+#line 18
     await testRunner.AndAsync("the \'Last Name\' column contains the following values:", ((string)(null)), table1, "And ");
 #line hidden
             }

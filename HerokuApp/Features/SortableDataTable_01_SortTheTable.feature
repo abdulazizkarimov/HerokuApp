@@ -6,12 +6,13 @@ To sort table by that column
 
 Background:
     Given I went on "https://the-internet.herokuapp.com/"
-    And I followed the 'Sortable Data Tables' link
-
+    
 @smoke
 Scenario: Clicking header sorts the table
-    And I captured the 'Web Site' value for the row with email 'jsmith@gmail.com'
-    When I click the 'First Name' column header
+    When I follow the 'Sortable Data Tables' link on the Main Page
+    Then the 'Sortable Data Tables' page is opened
+    When I capture the 'Web Site' value for the row with email 'jsmith@gmail.com'
+    And I click the 'First Name' column header
     Then the rows are sorted by the 'First Name' column
     And the captured value is still present in the 'Web Site' column
     And the 'Last Name' column contains the following values:

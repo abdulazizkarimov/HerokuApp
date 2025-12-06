@@ -3,7 +3,7 @@ using OpenQA.Selenium.Support.UI;
 
 namespace HerokuApp.Pages;
 
-public class SortableDataTablesPage
+public class SortableDataTablesPage : IPage
 {
     private readonly IWebDriver _driver;
     private readonly WebDriverWait _waiter;
