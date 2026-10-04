@@ -1,8 +1,10 @@
-﻿using OpenQA.Selenium;
+﻿using Allure.NUnit;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
 namespace HerokuApp.Base;
 
+[AllureNUnit]
 public abstract class BaseTest
 {
     protected IWebDriver driver;
