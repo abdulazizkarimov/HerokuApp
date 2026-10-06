@@ -1,4 +1,6 @@
-﻿using HerokuApp.Base;
+﻿using Allure.Net.Commons;
+using Allure.NUnit.Attributes;
+using HerokuApp.Base;
 using HerokuApp.Helpers;
 using HerokuApp.Pages;
 
@@ -8,6 +10,11 @@ namespace HerokuApp.Tests;
 public class HerokuAppTests : BaseTest
 {
     [Test]
+    [AllureSeverity(SeverityLevel.critical)]
+    [AllureOwner("Abdul Aziz Karimov")]
+    [AllureLink("Website", "https://the-internet.herokuapp.com/")]
+    [AllureIssue("BUG-1")]
+    [AllureTms("TC-1")]
     public void TC_1_Login_WithValidCredentials_ShouldLogUserInSuccessfully()
     {
         // Arrange
@@ -23,6 +30,11 @@ public class HerokuAppTests : BaseTest
     }
 
     [Test]
+    [AllureSeverity(SeverityLevel.critical)]
+    [AllureOwner("Abdul Aziz Karimov")]
+    [AllureLink("Website", "https://the-internet.herokuapp.com/")]
+    [AllureIssue("BUG-2")]
+    [AllureTms("TC-2")]
     public void TC_2_SortableDataTable_SortTheTable_InitialValuesArePresentAfterSorting()
     {
         // Arrange
