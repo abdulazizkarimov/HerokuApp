@@ -5,10 +5,25 @@ using HerokuApp.Pages;
 namespace HerokuApp.Tests;
 
 [TestFixture]
-public class SortableDataTableTests : BaseTest
+public class HerokuAppTests : BaseTest
 {
     [Test]
-    public void SortableDataTable_SortTheTable_InitialValuesArePresentAfterSorting()
+    public void TC_1_Login_WithValidCredentials_ShouldLogUserInSuccessfully()
+    {
+        // Arrange
+        driver.Navigate().GoToUrl(BaseUrl);
+        var mainPage = new MainPage(driver);
+
+        // Act
+        var loginPage = mainPage.ClickFormAuthenticationLink();
+        var secureAreaPage = loginPage.LoginAs("tomsmith", "SuperSecretPassword!");
+
+        // Assert
+        Assert.That(secureAreaPage.IsLoaded(), Is.True, "User should be logged in successfully.");
+    }
+
+    [Test]
+    public void TC_2_SortableDataTable_SortTheTable_InitialValuesArePresentAfterSorting()
     {
         // Arrange
         const string email = "jsmith@gmail.com";
