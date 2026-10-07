@@ -1,62 +1,68 @@
+// Declarative pipeline for a C# NUnit project.
+// Works on both Linux/macOS and Windows agents.
+
+// Run a command with sh on Linux/macOS or bat on Windows
+def run(String cmd) {
+    if (isUnix()) {
+        sh cmd
+    } else {
+        bat cmd
+    }
+}
+
 pipeline {
-    agent {
-        docker {
-            image 'mcr.microsoft.com/dotnet/sdk:8.0'
-            args '--user root'
-        }
+    agent any
+
+    options {
+        timestamps()
+        timeout(time: 30, unit: 'MINUTES')
+        buildDiscarder(logRotator(numToKeepStr: '20'))
+    }
+
+    // Optional: poll GitHub every ~5 minutes.
+    // Remove this if you use a GitHub webhook instead.
+    triggers {
+        pollSCM('H/5 * * * *')
     }
 
     environment {
         DOTNET_CLI_TELEMETRY_OPTOUT = '1'
-        DOTNET_SKIP_FIRST_TIME_EXPERIENCE = '1'
-        TEST_RESULTS = 'TestResults'
+        DOTNET_NOLOGO               = '1'
+        // Change to your .sln or test .csproj if the repo has more than one
+        TEST_TARGET                 = ''
     }
 
     stages {
-
         stage('Checkout') {
             steps {
+                // Uses the repository and branch configured in the job
                 checkout scm
             }
         }
 
         stage('Restore') {
             steps {
-                sh 'dotnet restore'
+                run "dotnet restore ${env.TEST_TARGET}"
             }
         }
 
         stage('Build') {
             steps {
-                sh 'dotnet build --configuration Release --no-restore'
+                run "dotnet build ${env.TEST_TARGET} --configuration Release --no-restore"
             }
         }
 
-        stage('Run NUnit Tests') {
+        stage('Test') {
             steps {
-                sh '''
-                    dotnet test \
-                      --configuration Release \
-                      --no-build \
-                      --logger "trx;LogFileName=test_results.trx" \
-                      --results-directory ${TEST_RESULTS}
-                '''
+                run "dotnet test ${env.TEST_TARGET} --configuration Release --no-build --logger \"junit;LogFilePath=${env.WORKSPACE}/TestResults/results.xml\""
             }
         }
     }
 
     post {
         always {
-            junit allowEmptyResults: true, testResults: '**/TestResults/*.trx'
-            archiveArtifacts artifacts: '**/TestResults/**/*', allowEmptyArchive: true
-        }
-
-        success {
-            echo 'Tests passed'
-        }
-
-        failure {
-            echo 'Tests failed'
+            // Publish results even when tests fail
+            junit testResults: 'TestResults/*.xml', allowEmptyResults: false
         }
     }
 }
