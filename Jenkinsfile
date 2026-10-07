@@ -2,7 +2,7 @@
 // Works on both Linux/macOS and Windows agents.
 
 // Run a command with sh on Linux/macOS or bat on Windows
-def run(String cmd) {
+def runCmd(String cmd) {
     if (isUnix()) {
         sh cmd
     } else {
@@ -42,19 +42,19 @@ pipeline {
 
         stage('Restore') {
             steps {
-                run "dotnet restore ${env.TEST_TARGET}"
+                runCmd "dotnet restore ${env.TEST_TARGET}"
             }
         }
 
         stage('Build') {
             steps {
-                run "dotnet build ${env.TEST_TARGET} --configuration Release --no-restore"
+                runCmd "dotnet build ${env.TEST_TARGET} --configuration Release --no-restore"
             }
         }
 
         stage('Test') {
             steps {
-                run "dotnet test ${env.TEST_TARGET} --configuration Release --no-build --logger \"junit;LogFilePath=${env.WORKSPACE}/TestResults/results.xml\""
+                runCmd "dotnet test ${env.TEST_TARGET} --configuration Release --no-build --logger \"junit;LogFilePath=${env.WORKSPACE}/TestResults/results.xml\""
             }
         }
     }
