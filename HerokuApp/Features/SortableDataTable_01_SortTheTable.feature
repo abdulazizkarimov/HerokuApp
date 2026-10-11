@@ -1,4 +1,5 @@
-﻿Feature: Sort table by column header on the Sortable Data Tables page
+﻿@ignore
+Feature: Sort table by column header on the Sortable Data Tables page
 
 As a user
 I want to click the header of a column

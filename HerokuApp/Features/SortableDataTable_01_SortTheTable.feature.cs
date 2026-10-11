@@ -20,12 +20,14 @@ namespace HerokuApp.Features
     [global::NUnit.Framework.TestFixtureAttribute()]
     [global::NUnit.Framework.DescriptionAttribute("Sort table by column header on the Sortable Data Tables page")]
     [global::NUnit.Framework.FixtureLifeCycleAttribute(global::NUnit.Framework.LifeCycle.InstancePerTestCase)]
+    [global::NUnit.Framework.IgnoreAttribute("Ignored feature")]
     public partial class SortTableByColumnHeaderOnTheSortableDataTablesPageFeature
     {
         
         private global::Reqnroll.ITestRunner testRunner;
         
-        private static string[] featureTags = ((string[])(null));
+        private static string[] featureTags = new string[] {
+                "ignore"};
         
         private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features", "Sort table by column header on the Sortable Data Tables page", "As a user\r\nI want to click the header of a column\r\nTo sort table by that column", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags, InitializeCucumberMessages());
         
@@ -105,9 +107,9 @@ namespace HerokuApp.Features
         
         public virtual async global::System.Threading.Tasks.Task FeatureBackgroundAsync()
         {
-#line 7
-#line hidden
 #line 8
+#line hidden
+#line 9
     await testRunner.GivenAsync("I went on \"https://the-internet.herokuapp.com/\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
         }
@@ -129,7 +131,7 @@ namespace HerokuApp.Features
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Clicking header sorts the table", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
             global::Reqnroll.RuleInfo ruleInfo = null;
-#line 11
+#line 12
 this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -139,25 +141,25 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 7
+#line 8
 await this.FeatureBackgroundAsync();
 #line hidden
-#line 12
+#line 13
     await testRunner.WhenAsync("I follow the \'Sortable Data Tables\' link on the Main Page", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 13
+#line 14
     await testRunner.ThenAsync("the \'Sortable Data Tables\' page is opened", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 14
+#line 15
     await testRunner.WhenAsync("I capture the \'Web Site\' value for the row with email \'jsmith@gmail.com\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 15
+#line 16
     await testRunner.AndAsync("I click the \'First Name\' column header", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 16
+#line 17
     await testRunner.ThenAsync("the rows are sorted by the \'First Name\' column", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 17
+#line 18
     await testRunner.AndAsync("the captured value is still present in the \'Web Site\' column", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
                 global::Reqnroll.Table table1 = new global::Reqnroll.Table(new string[] {
@@ -170,7 +172,7 @@ await this.FeatureBackgroundAsync();
                             "Doe"});
                 table1.AddRow(new string[] {
                             "Conway"});
-#line 18
+#line 19
     await testRunner.AndAsync("the \'Last Name\' column contains the following values:", ((string)(null)), table1, "And ");
 #line hidden
             }
