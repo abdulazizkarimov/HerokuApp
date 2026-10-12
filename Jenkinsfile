@@ -1,6 +1,3 @@
-// Declarative pipeline for a C# NUnit project.
-// Works on both Linux/macOS and Windows agents.
-
 // Run a command with sh on Linux/macOS or bat on Windows
 def runCmd(String cmd) {
     if (isUnix()) {
@@ -12,7 +9,6 @@ def runCmd(String cmd) {
 
 // Path to your .sln or test .csproj, relative to the repo root.
 // Leave empty ('') if the repo root contains exactly one .sln or .csproj.
-// Example: 'HerokuApp.Tests/HerokuApp.Tests.csproj'
 def testTarget() {
     return ''
 }
@@ -26,8 +22,6 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '20'))
     }
 
-    // Optional: poll GitHub every ~5 minutes.
-    // Remove this if you use a GitHub webhook instead.
     triggers {
         pollSCM('H/5 * * * *')
     }
@@ -66,9 +60,6 @@ pipeline {
 
     post {
         always {
-            // Publish results even when tests fail.
-            // allowEmptyResults avoids a second, confusing error if the build
-            // failed before any tests ran.
             junit testResults: 'TestResults/*.xml', allowEmptyResults: true
         }
     }
